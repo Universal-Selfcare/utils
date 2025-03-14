@@ -4,11 +4,9 @@ import (
 	"time"
 )
 
-// UserIntake represents the intake form information for a user
-type UserIntake struct {
-	ID     int64 `gorm:"primaryKey"        json:"id"`
-	UserID int64 `gorm:"not null;index"    json:"user_id"`
-	User   User  `gorm:"foreignKey:UserID" json:"user"`
+type MedicalInformation struct {
+	ID     int64 `gorm:"primaryKey"     json:"id"`
+	UserID int64 `gorm:"not null;index" json:"user_id"`
 
 	// Basic information
 	Height             string `gorm:"type:text;not null" json:"height"`
@@ -21,7 +19,6 @@ type UserIntake struct {
 	ContactPreference  string `gorm:"type:text;not null" json:"contact_preference"`  // "Phone" or "Email"
 	CaregivingPriority string `gorm:"type:text;not null" json:"caregiving_priority"` // "What is most important to you to help the patient?"
 
-	// Environmental exposures
 	OralAntibiotics                 bool `gorm:"default:false" json:"oral_antibiotics"`
 	FrequentHydroLotions            bool `gorm:"default:false" json:"frequent_hydro_lotions"`
 	MetalsOrMagnesiumPowder         bool `gorm:"default:false" json:"metals_or_magnesium_powder"`
@@ -38,7 +35,6 @@ type UserIntake struct {
 	DailyUsePlasticUtensils         bool `gorm:"default:false" json:"daily_use_plastic_utensils"`
 	FrequentMealsShellfishLargeFish bool `gorm:"default:false" json:"frequent_meals_shellfish_large_fish"`
 
-	// Mental/Mood Health
 	TraumaOrNightmares            bool `gorm:"default:false" json:"trauma_or_nightmares"`
 	ScreamsOrShrieks              bool `gorm:"default:false" json:"screams_or_shrieks"`
 	MoodSwings                    bool `gorm:"default:false" json:"mood_swings"`
@@ -81,7 +77,6 @@ type UserIntake struct {
 	FungalNailInfections        bool `gorm:"default:false" json:"fungal_nail_infections"`
 	ChronicAcheOrPain           bool `gorm:"default:false" json:"chronic_ache_or_pain"`
 
-	// Skin Symptoms
 	Eczema           bool `gorm:"default:false" json:"eczema"`
 	Acne             bool `gorm:"default:false" json:"acne"`
 	Psoriasis        bool `gorm:"default:false" json:"psoriasis"`
@@ -94,7 +89,6 @@ type UserIntake struct {
 	ItchyGenitalArea bool `gorm:"default:false" json:"itchy_genital_area"`
 	TinyBumpsOnCheek bool `gorm:"default:false" json:"tiny_bumps_on_cheek"`
 
-	// Gastrointestinal Symptoms
 	BadBreath                   bool `gorm:"default:false" json:"bad_breath"`
 	CavitiesDentalHealth        bool `gorm:"default:false" json:"cavities_dental_health"`
 	BleedingGumsGI              bool `gorm:"default:false" json:"bleeding_gums_gi"`
@@ -107,7 +101,6 @@ type UserIntake struct {
 	StoolWithUndigestedFood     bool `gorm:"default:false" json:"stool_with_undigested_food"`
 	BladderInfection            bool `gorm:"default:false" json:"bladder_infection"`
 
-	// Known Medical Conditions
 	IrritableBowelSyndrome             bool   `gorm:"default:false" json:"irritable_bowel_syndrome"`
 	UlcerativeColitis                  bool   `gorm:"default:false" json:"ulcerative_colitis"`
 	GastritisOrPepticUlcer             bool   `gorm:"default:false" json:"gastritis_or_peptic_ulcer"`
@@ -168,98 +161,14 @@ type UserIntake struct {
 	HealthTriggers string `gorm:"type:text" json:"health_triggers"`
 	DesiredChanges string `gorm:"type:text" json:"desired_changes"`
 
-	Caregivers         []Caregiver         `json:"caregivers"`
-	EmergencyContacts  []EmergencyContact  `json:"emergency_contacts"`
-	MedicalEvents      []MedicalEvent      `json:"medical_events"`
-	FrequentFoods      []FrequentFood      `json:"frequent_foods"`
-	Allergies          []Allergy           `json:"allergies"`
-	Medications        []Medication        `json:"medications"`
-	DietarySupplements []DietarySupplement `json:"dietary_supplements"`
-
 	CreatedAt time.Time `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt time.Time `gorm:"autoUpdateTime" json:"updated_at"`
 }
 
-type Caregiver struct {
-	ID           int64     `gorm:"primaryKey"      json:"id"`
-	UserIntakeID int64     `gorm:"not null;index"  json:"user_intake_id"`
-	Email        string    `gorm:"type:text;index" json:"email"`
-	CreatedAt    time.Time `gorm:"autoCreateTime"  json:"created_at"`
-	UpdatedAt    time.Time `gorm:"autoUpdateTime"  json:"updated_at"`
-}
-
-// EmergencyContact represents an emergency contact for a user
-type EmergencyContact struct {
-	ID           int64     `gorm:"primaryKey"     json:"id"`
-	UserIntakeID int64     `gorm:"not null;index" json:"user_intake_id"`
-	FirstName    string    `gorm:"type:text"      json:"first_name"`
-	LastName     string    `gorm:"type:text"      json:"last_name"`
-	PhoneNumber  string    `gorm:"type:text"      json:"phone_number"`
-	Email        string    `gorm:"type:text"      json:"email"`
-	CreatedAt    time.Time `gorm:"autoCreateTime" json:"created_at"`
-	UpdatedAt    time.Time `gorm:"autoUpdateTime" json:"updated_at"`
-}
-
-// MedicalEvent represents a significant medical event in a user's timeline
-type MedicalEvent struct {
-	ID           int64     `gorm:"primaryKey"     json:"id"`
-	UserIntakeID int64     `gorm:"not null;index" json:"user_intake_id"`
-	Age          string    `gorm:"type:text"      json:"age"`
-	Description  string    `gorm:"type:text"      json:"description"`
-	CreatedAt    time.Time `gorm:"autoCreateTime" json:"created_at"`
-	UpdatedAt    time.Time `gorm:"autoUpdateTime" json:"updated_at"`
-}
-
-// FrequentFood represents a food item that is frequently eaten
-type FrequentFood struct {
-	ID           int64     `gorm:"primaryKey"     json:"id"`
-	UserIntakeID int64     `gorm:"not null;index" json:"user_intake_id"`
-	FoodName     string    `gorm:"type:text"      json:"food_name"`
-	CreatedAt    time.Time `gorm:"autoCreateTime" json:"created_at"`
-	UpdatedAt    time.Time `gorm:"autoUpdateTime" json:"updated_at"`
-}
-
-// Allergy represents an allergy that the user has
-type Allergy struct {
-	ID           int64     `gorm:"primaryKey"     json:"id"`
-	UserIntakeID int64     `gorm:"not null;index" json:"user_intake_id"`
-	AllergyName  string    `gorm:"type:text"      json:"allergy_name"`
-	Reaction     string    `gorm:"type:text"      json:"reaction"`
-	CreatedAt    time.Time `gorm:"autoCreateTime" json:"created_at"`
-	UpdatedAt    time.Time `gorm:"autoUpdateTime" json:"updated_at"`
-}
-
-// Medication represents a medication that the user is taking
-type Medication struct {
-	ID           int64     `gorm:"primaryKey"     json:"id"`
-	UserIntakeID int64     `gorm:"not null;index" json:"user_intake_id"`
-	Name         string    `gorm:"type:text"      json:"name"`
-	Dosage       string    `gorm:"type:text"      json:"dosage"`
-	StartDate    string    `gorm:"type:text"      json:"start_date"`
-	EndDate      string    `gorm:"type:text"      json:"end_date"`
-	Current      bool      `                      json:"current"`
-	SideEffects  string    `gorm:"type:text"      json:"side_effects"`
-	CreatedAt    time.Time `gorm:"autoCreateTime" json:"created_at"`
-	UpdatedAt    time.Time `gorm:"autoUpdateTime" json:"updated_at"`
-}
-
-// DietarySupplement represents a dietary supplement that the user is taking
-type DietarySupplement struct {
-	ID           int64     `gorm:"primaryKey"     json:"id"`
-	UserIntakeID int64     `gorm:"not null;index" json:"user_intake_id"`
-	Name         string    `gorm:"type:text"      json:"name"`
-	Dosage       string    `gorm:"type:text"      json:"dosage"`
-	StartDate    string    `gorm:"type:text"      json:"start_date"`
-	CreatedAt    time.Time `gorm:"autoCreateTime" json:"created_at"`
-	UpdatedAt    time.Time `gorm:"autoUpdateTime" json:"updated_at"`
-}
-
-// UserIntakeStore interface for user intake data operations
-type UserIntakeStore interface {
-	CreateUserIntake(userIntake *UserIntake) (*UserIntake, error)
-	GetUserIntake(id int64) (*UserIntake, error)
-	GetUserIntakeByUserID(userID int64) (*UserIntake, error)
-	UpdateUserIntake(userIntake *UserIntake) error
-	DeleteUserIntake(id int64) error
-	ListUserIntakes() ([]*UserIntake, error)
+type MedicalInformationStore interface {
+	CreateMedicalInformation(userIntake *MedicalInformation) (*MedicalInformation, error)
+	GetMedicalInformation(id int64) (*MedicalInformation, error)
+	GetMedicalInformationByUserID(userID int64) (*MedicalInformation, error)
+	UpdateMedicalInformation(userIntake *MedicalInformation) error
+	DeleteMedicalInformation(id int64) error
 }

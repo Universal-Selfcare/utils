@@ -9,15 +9,26 @@ import (
 var AnonymousUser = &User{}
 
 type User struct {
-	ID          int64     `gorm:"primaryKey"                     json:"id"`
-	UserName    string    `gorm:"type:text;not null;uniqueIndex" json:"user_name"`
-	FirstName   string    `gorm:"type:text;not null"             json:"first_name"`
-	LastName    string    `gorm:"type:text;not null"             json:"last_name"`
-	Email       string    `gorm:"type:text;not null;uniqueIndex" json:"email"`
-	PhoneNumber string    `gorm:"type:text;not null;uniqueIndex" json:"phone_number"`
-	Hash        string    `gorm:"type:text;not null"             json:"hash"`
-	CreatedAt   time.Time `gorm:"autoCreateTime"                 json:"created_at"`
-	UpdatedAt   time.Time `gorm:"autoUpdateTime"                 json:"updated_at"`
+	ID          int64  `gorm:"primaryKey"                     json:"id"`
+	UserName    string `gorm:"type:text;not null;uniqueIndex" json:"user_name"`
+	FirstName   string `gorm:"type:text;not null"             json:"first_name"`
+	LastName    string `gorm:"type:text;not null"             json:"last_name"`
+	Email       string `gorm:"type:text;not null;uniqueIndex" json:"email"`
+	PhoneNumber string `gorm:"type:text;not null;uniqueIndex" json:"phone_number"`
+	Hash        string `gorm:"type:text;not null"             json:"hash"`
+
+	MedicalInformation MedicalInformation `json:"medical_information"`
+
+	Caregivers         []Caregiver         `json:"caregivers"`
+	EmergencyContacts  []EmergencyContact  `json:"emergency_contacts"`
+	MedicalEvents      []MedicalEvent      `json:"medical_events"`
+	FrequentFoods      []FrequentFood      `json:"frequent_foods"`
+	Allergies          []Allergy           `json:"allergies"`
+	Medications        []Medication        `json:"medications"`
+	DietarySupplements []DietarySupplement `json:"dietary_supplements"`
+
+	CreatedAt time.Time `gorm:"autoCreateTime" json:"created_at"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime" json:"updated_at"`
 }
 
 type UserStore interface {

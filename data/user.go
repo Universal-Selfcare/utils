@@ -9,13 +9,14 @@ import (
 var AnonymousUser = &User{}
 
 type User struct {
-	ID          int64  `gorm:"primaryKey"                     json:"id"`
-	UserName    string `gorm:"type:text;not null;uniqueIndex" json:"user_name"`
-	FirstName   string `gorm:"type:text;not null"             json:"first_name"`
-	LastName    string `gorm:"type:text;not null"             json:"last_name"`
-	Email       string `gorm:"type:text;not null;uniqueIndex" json:"email"`
-	PhoneNumber string `gorm:"type:text;not null;uniqueIndex" json:"phone_number"`
-	Hash        string `gorm:"type:text;not null"             json:"hash"`
+	ID                 int64  `gorm:"primaryKey"                     json:"id"`
+	UserName           string `gorm:"type:text;not null;uniqueIndex" json:"user_name"`
+	FirstName          string `gorm:"type:text;not null"             json:"first_name"`
+	LastName           string `gorm:"type:text;not null"             json:"last_name"`
+	Email              string `gorm:"type:text;not null;uniqueIndex" json:"email"`
+	PhoneNumber        string `gorm:"type:text;not null;uniqueIndex" json:"phone_number"`
+	Hash               string `gorm:"type:text;not null"             json:"hash"`
+	UserIntakeComplete bool   `gorm:"default:false"                  json:"user_intake_complete"`
 
 	MedicalInformation MedicalInformation `json:"medical_information"`
 

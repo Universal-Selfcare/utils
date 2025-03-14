@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+// TODO it might make sense to refactor this into blocks which are more often used/updated independently
 type MedicalInformation struct {
 	ID     int64 `gorm:"primaryKey"     json:"id"`
 	UserID int64 `gorm:"not null;index" json:"user_id"`

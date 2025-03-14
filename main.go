@@ -90,12 +90,13 @@ func main() {
 	db.AutoMigrate(
 		data.User{},
 		data.Token{},
-		data.UserIntake{},
+		data.MedicalInformation{},
 		data.Caregiver{},
 		data.Allergy{},
 		data.MedicalEvent{},
 		data.FrequentFood{},
 		data.Medication{},
+		data.EmergencyContact{},
 		data.DietarySupplement{},
 	)
 }

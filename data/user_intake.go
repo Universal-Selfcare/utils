@@ -11,29 +11,27 @@ type UserIntake struct {
 	User   User  `gorm:"foreignKey:UserID" json:"user"`
 
 	// Basic information
-	Height             string `gorm:"type:text" json:"height"`
-	Weight             string `gorm:"type:text" json:"weight"`
-	Diagnosis          string `gorm:"type:text" json:"diagnosis"`
-	DiagnosisSeverity  string `gorm:"type:text" json:"diagnosis_severity"`
-	CurrentPriority    string `gorm:"type:text" json:"current_priority"` // "What is most important to you today?"
-	Gender             string `gorm:"type:text" json:"gender"`
-	State              string `gorm:"type:text" json:"state"`
-	ContactPreference  string `gorm:"type:text" json:"contact_preference"`  // "Phone" or "Email"
-	CaregivingPriority string `gorm:"type:text" json:"caregiving_priority"` // "What is most important to you to help the patient?"
+	Height             string `gorm:"type:text;not null" json:"height"`
+	Weight             string `gorm:"type:text;not null" json:"weight"`
+	Diagnosis          string `gorm:"type:text;not null" json:"diagnosis"`
+	DiagnosisSeverity  string `gorm:"type:text;not null" json:"diagnosis_severity"`
+	CurrentPriority    string `gorm:"type:text;not null" json:"current_priority"` // "What is most important to you today?"
+	Gender             string `gorm:"type:text;not null" json:"gender"`
+	State              string `gorm:"type:text;not null" json:"state"`
+	ContactPreference  string `gorm:"type:text;not null" json:"contact_preference"`  // "Phone" or "Email"
+	CaregivingPriority string `gorm:"type:text;not null" json:"caregiving_priority"` // "What is most important to you to help the patient?"
 
-	// Environmental exposures - Part 1
-	OralAntibiotics          bool `gorm:"default:false" json:"oral_antibiotics"`
-	FrequentHydroLotions     bool `gorm:"default:false" json:"frequent_hydro_lotions"`
-	MetalsOrMagnesiumPowder  bool `gorm:"default:false" json:"metals_or_magnesium_powder"`
-	UnfilteredTapWater       bool `gorm:"default:false" json:"unfiltered_tap_water"`
-	PesticidesFromFarm       bool `gorm:"default:false" json:"pesticides_from_farm"`
-	TwoOrMoreHoursScreenTime bool `gorm:"default:false" json:"two_or_more_hours_screen_time"`
-	DentalOrBodyXRays        bool `gorm:"default:false" json:"dental_or_body_x_rays"`
-	FrequentWirelessDevice   bool `gorm:"default:false" json:"frequent_wireless_device"`
-	WaterLeakageInBasement   bool `gorm:"default:false" json:"water_leakage_in_basement"`
-	MustyMildewSmell         bool `gorm:"default:false" json:"musty_mildew_smell"`
-
-	// Environmental exposures - Part 2
+	// Environmental exposures
+	OralAntibiotics                 bool `gorm:"default:false" json:"oral_antibiotics"`
+	FrequentHydroLotions            bool `gorm:"default:false" json:"frequent_hydro_lotions"`
+	MetalsOrMagnesiumPowder         bool `gorm:"default:false" json:"metals_or_magnesium_powder"`
+	UnfilteredTapWater              bool `gorm:"default:false" json:"unfiltered_tap_water"`
+	PesticidesFromFarm              bool `gorm:"default:false" json:"pesticides_from_farm"`
+	TwoOrMoreHoursScreenTime        bool `gorm:"default:false" json:"two_or_more_hours_screen_time"`
+	DentalOrBodyXRays               bool `gorm:"default:false" json:"dental_or_body_x_rays"`
+	FrequentWirelessDevice          bool `gorm:"default:false" json:"frequent_wireless_device"`
+	WaterLeakageInBasement          bool `gorm:"default:false" json:"water_leakage_in_basement"`
+	MustyMildewSmell                bool `gorm:"default:false" json:"musty_mildew_smell"`
 	FrequentDeodorantWithNailPolish bool `gorm:"default:false" json:"frequent_deodorant_with_nail_polish"`
 	CannedFoodsThermalReceipts      bool `gorm:"default:false" json:"canned_foods_thermal_receipts"`
 	ContactWithBuildingMaterials    bool `gorm:"default:false" json:"contact_with_building_materials"`
@@ -54,7 +52,7 @@ type UserIntake struct {
 	SensoryIntegrationDisorder    bool `gorm:"default:false" json:"sensory_integration_disorder"`
 	Autism                        bool `gorm:"default:false" json:"autism"`
 
-	// Body 1 Symptoms
+	// Body Symptoms
 	HairIsThinning              bool `gorm:"default:false" json:"hair_is_thinning"`
 	BleedingGums                bool `gorm:"default:false" json:"bleeding_gums"`
 	Gingivitis                  bool `gorm:"default:false" json:"gingivitis"`
@@ -70,8 +68,6 @@ type UserIntake struct {
 	ChronicRunnyNose            bool `gorm:"default:false" json:"chronic_runny_nose"`
 	AbnormalEarlyDevelopment    bool `gorm:"default:false" json:"abnormal_early_development"`
 	PainfulPeriods              bool `gorm:"default:false" json:"painful_periods"`
-
-	// Body 2 Symptoms
 	HeadachesOrMigraines        bool `gorm:"default:false" json:"headaches_or_migraines"`
 	HeartPalpitations           bool `gorm:"default:false" json:"heart_palpitations"`
 	FrequentlyCatchesInfections bool `gorm:"default:false" json:"frequently_catches_infections"`
@@ -111,89 +107,79 @@ type UserIntake struct {
 	StoolWithUndigestedFood     bool `gorm:"default:false" json:"stool_with_undigested_food"`
 	BladderInfection            bool `gorm:"default:false" json:"bladder_infection"`
 
-	// Known Medical Conditions - Page 1
-	IrritableBowelSyndrome         bool `gorm:"default:false" json:"irritable_bowel_syndrome"`
-	UlcerativeColitis              bool `gorm:"default:false" json:"ulcerative_colitis"`
-	GastritisOrPepticUlcer         bool `gorm:"default:false" json:"gastritis_or_peptic_ulcer"`
-	GERD                           bool `gorm:"default:false" json:"gerd"`
-	CeliacDisease                  bool `gorm:"default:false" json:"celiac_disease"`
-	HeartDisease                   bool `gorm:"default:false" json:"heart_disease"`
-	ElevatedOrLowCholesterol       bool `gorm:"default:false" json:"elevated_or_low_cholesterol"`
-	HighBloodPressure              bool `gorm:"default:false" json:"high_blood_pressure"`
-	POTSDysautonomia               bool `gorm:"default:false" json:"pots_dysautonomia"`
-	RheumaticFever                 bool `gorm:"default:false" json:"rheumatic_fever"`
-	MitralValveProlapse            bool `gorm:"default:false" json:"mitral_valve_prolapse"`
-	Type1Diabetes                  bool `gorm:"default:false" json:"type_1_diabetes"`
-	Type2Diabetes                  bool `gorm:"default:false" json:"type_2_diabetes"`
-	Hypoglycemia                   bool `gorm:"default:false" json:"hypoglycemia"`
-	InsulinResistanceOrPrediabetes bool `gorm:"default:false" json:"insulin_resistance_or_prediabetes"`
+	// Known Medical Conditions
+	IrritableBowelSyndrome             bool   `gorm:"default:false" json:"irritable_bowel_syndrome"`
+	UlcerativeColitis                  bool   `gorm:"default:false" json:"ulcerative_colitis"`
+	GastritisOrPepticUlcer             bool   `gorm:"default:false" json:"gastritis_or_peptic_ulcer"`
+	GERD                               bool   `gorm:"default:false" json:"gerd"`
+	CeliacDisease                      bool   `gorm:"default:false" json:"celiac_disease"`
+	HeartDisease                       bool   `gorm:"default:false" json:"heart_disease"`
+	ElevatedOrLowCholesterol           bool   `gorm:"default:false" json:"elevated_or_low_cholesterol"`
+	HighBloodPressure                  bool   `gorm:"default:false" json:"high_blood_pressure"`
+	POTSDysautonomia                   bool   `gorm:"default:false" json:"pots_dysautonomia"`
+	RheumaticFever                     bool   `gorm:"default:false" json:"rheumatic_fever"`
+	MitralValveProlapse                bool   `gorm:"default:false" json:"mitral_valve_prolapse"`
+	Type1Diabetes                      bool   `gorm:"default:false" json:"type_1_diabetes"`
+	Type2Diabetes                      bool   `gorm:"default:false" json:"type_2_diabetes"`
+	Hypoglycemia                       bool   `gorm:"default:false" json:"hypoglycemia"`
+	InsulinResistanceOrPrediabetes     bool   `gorm:"default:false" json:"insulin_resistance_or_prediabetes"`
+	Hypothyroidism                     bool   `gorm:"default:false" json:"hypothyroidism"`
+	Hyperthyroidism                    bool   `gorm:"default:false" json:"hyperthyroidism"`
+	EndocrineProblems                  bool   `gorm:"default:false" json:"endocrine_problems"`
+	WeightGain                         bool   `gorm:"default:false" json:"weight_gain"`
+	WeightLoss                         bool   `gorm:"default:false" json:"weight_loss"`
+	WeightFluctuations                 bool   `gorm:"default:false" json:"weight_fluctuations"`
+	OtherEatingDisorder                bool   `gorm:"default:false" json:"other_eating_disorder"`
+	MitochondrialDysfunction           bool   `gorm:"default:false" json:"mitochondrial_dysfunction"`
+	FolateDeficiency                   bool   `gorm:"default:false" json:"folate_deficiency"`
+	FattyAcidOxidationDefect           bool   `gorm:"default:false" json:"fatty_acid_oxidation_defect"`
+	KidneyStones                       bool   `gorm:"default:false" json:"kidney_stones"`
+	UrinaryTractInfections             bool   `gorm:"default:false" json:"urinary_tract_infections"`
+	YeastInfections                    bool   `gorm:"default:false" json:"yeast_infections"`
+	Arthritis                          bool   `gorm:"default:false" json:"arthritis"`
+	Fibromyalgia                       bool   `gorm:"default:false" json:"fibromyalgia"`
+	ChronicPain                        bool   `gorm:"default:false" json:"chronic_pain"`
+	ChronicFatigueSyndrome             bool   `gorm:"default:false" json:"chronic_fatigue_syndrome"`
+	AutoimmuneDisease                  string `gorm:"type:text"     json:"autoimmune_disease"` // Free text field
+	RheumatoidArthritis                bool   `gorm:"default:false" json:"rheumatoid_arthritis"`
+	Lupus                              bool   `gorm:"default:false" json:"lupus"`
+	ImmuneDeficiencyDisease            bool   `gorm:"default:false" json:"immune_deficiency_disease"`
+	PoorImmuneFunction                 bool   `gorm:"default:false" json:"poor_immune_function"`
+	FoodAllergies                      bool   `gorm:"default:false" json:"food_allergies"`
+	EnvironmentalAllergies             bool   `gorm:"default:false" json:"environmental_allergies"`
+	MultipleChemicalSensitivities      bool   `gorm:"default:false" json:"multiple_chemical_sensitivities"`
+	LatexAllergy                       bool   `gorm:"default:false" json:"latex_allergy"`
+	FrequentEarInfections              bool   `gorm:"default:false" json:"frequent_ear_infections"`
+	FrequentSinusInfections            bool   `gorm:"default:false" json:"frequent_sinus_infections"`
+	FrequentUpperRespiratoryInfections bool   `gorm:"default:false" json:"frequent_upper_respiratory_infections"`
+	Bronchitis                         bool   `gorm:"default:false" json:"bronchitis"`
+	SleepApnea                         bool   `gorm:"default:false" json:"sleep_apnea"`
+	TiredALotOfTheTime                 bool   `gorm:"default:false" json:"tired_a_lot_of_the_time"`
+	CantFallAsleep                     bool   `gorm:"default:false" json:"cant_fall_asleep"`
+	NeurologicalSymptoms               bool   `gorm:"default:false" json:"neurological_symptoms"`
+	SensitivityToStimuli               bool   `gorm:"default:false" json:"sensitivity_to_stimuli"`
+	BullsEyeRash                       bool   `gorm:"default:false" json:"bulls_eye_rash"`
+	SweatingHeadacheCognitive          bool   `gorm:"default:false" json:"sweating_headache_cognitive"`
 
-	// Known Medical Conditions - Page 2
-	Hypothyroidism           bool `gorm:"default:false" json:"hypothyroidism"`
-	Hyperthyroidism          bool `gorm:"default:false" json:"hyperthyroidism"`
-	EndocrineProblems        bool `gorm:"default:false" json:"endocrine_problems"`
-	WeightGain               bool `gorm:"default:false" json:"weight_gain"`
-	WeightLoss               bool `gorm:"default:false" json:"weight_loss"`
-	WeightFluctuations       bool `gorm:"default:false" json:"weight_fluctuations"`
-	OtherEatingDisorder      bool `gorm:"default:false" json:"other_eating_disorder"`
-	MitochondrialDysfunction bool `gorm:"default:false" json:"mitochondrial_dysfunction"`
-	FolateDeficiency         bool `gorm:"default:false" json:"folate_deficiency"`
-	FattyAcidOxidationDefect bool `gorm:"default:false" json:"fatty_acid_oxidation_defect"`
-	KidneyStones             bool `gorm:"default:false" json:"kidney_stones"`
-	UrinaryTractInfections   bool `gorm:"default:false" json:"urinary_tract_infections"`
-	YeastInfections          bool `gorm:"default:false" json:"yeast_infections"`
-
-	// Known Medical Conditions - Page 3
-	Arthritis                     bool   `gorm:"default:false" json:"arthritis"`
-	Fibromyalgia                  bool   `gorm:"default:false" json:"fibromyalgia"`
-	ChronicPain                   bool   `gorm:"default:false" json:"chronic_pain"`
-	ChronicFatigueSyndrome        bool   `gorm:"default:false" json:"chronic_fatigue_syndrome"`
-	AutoimmuneDisease             string `gorm:"type:text"     json:"autoimmune_disease"` // Free text field
-	RheumatoidArthritis           bool   `gorm:"default:false" json:"rheumatoid_arthritis"`
-	Lupus                         bool   `gorm:"default:false" json:"lupus"`
-	ImmuneDeficiencyDisease       bool   `gorm:"default:false" json:"immune_deficiency_disease"`
-	PoorImmuneFunction            bool   `gorm:"default:false" json:"poor_immune_function"`
-	FoodAllergies                 bool   `gorm:"default:false" json:"food_allergies"`
-	EnvironmentalAllergies        bool   `gorm:"default:false" json:"environmental_allergies"`
-	MultipleChemicalSensitivities bool   `gorm:"default:false" json:"multiple_chemical_sensitivities"`
-	LatexAllergy                  bool   `gorm:"default:false" json:"latex_allergy"`
-
-	// Known Medical Conditions - Page 4
-	FrequentEarInfections              bool `gorm:"default:false" json:"frequent_ear_infections"`
-	FrequentSinusInfections            bool `gorm:"default:false" json:"frequent_sinus_infections"`
-	FrequentUpperRespiratoryInfections bool `gorm:"default:false" json:"frequent_upper_respiratory_infections"`
-	Bronchitis                         bool `gorm:"default:false" json:"bronchitis"`
-	SleepApnea                         bool `gorm:"default:false" json:"sleep_apnea"`
-	TiredALotOfTheTime                 bool `gorm:"default:false" json:"tired_a_lot_of_the_time"`
-	CantFallAsleep                     bool `gorm:"default:false" json:"cant_fall_asleep"`
-	NeurologicalSymptoms               bool `gorm:"default:false" json:"neurological_symptoms"`
-	SensitivityToStimuli               bool `gorm:"default:false" json:"sensitivity_to_stimuli"`
-	BullsEyeRash                       bool `gorm:"default:false" json:"bulls_eye_rash"`
-	SweatingHeadacheCognitive          bool `gorm:"default:false" json:"sweating_headache_cognitive"`
-
-	// Additional information
 	OtherConditions       string `gorm:"type:text"    json:"other_conditions"`        // Free text field
 	FoodRelatedConditions string `gorm:"type:text"    json:"food_related_conditions"` // Free text field
 	AppendixRemoved       *bool  `gorm:"default:null" json:"appendix_removed"`        // Yes/No field
 
-	// Calming / Additional Questions
 	HealthTriggers string `gorm:"type:text" json:"health_triggers"`
 	DesiredChanges string `gorm:"type:text" json:"desired_changes"`
 
-	// Related records
-	Caregivers         []Caregiver         `gorm:"foreignKey:UserIntakeID" json:"caregivers"`
-	EmergencyContacts  []EmergencyContact  `gorm:"foreignKey:UserIntakeID" json:"emergency_contacts"`
-	MedicalEvents      []MedicalEvent      `gorm:"foreignKey:UserIntakeID" json:"medical_events"`
-	FrequentFoods      []FrequentFood      `gorm:"foreignKey:UserIntakeID" json:"frequent_foods"`
-	Allergies          []Allergy           `gorm:"foreignKey:UserIntakeID" json:"allergies"`
-	Medications        []Medication        `gorm:"foreignKey:UserIntakeID" json:"medications"`
-	DietarySupplements []DietarySupplement `gorm:"foreignKey:UserIntakeID" json:"dietary_supplements"`
+	Caregivers         []Caregiver         `json:"caregivers"`
+	EmergencyContacts  []EmergencyContact  `json:"emergency_contacts"`
+	MedicalEvents      []MedicalEvent      `json:"medical_events"`
+	FrequentFoods      []FrequentFood      `json:"frequent_foods"`
+	Allergies          []Allergy           `json:"allergies"`
+	Medications        []Medication        `json:"medications"`
+	DietarySupplements []DietarySupplement `json:"dietary_supplements"`
 
 	CreatedAt time.Time `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt time.Time `gorm:"autoUpdateTime" json:"updated_at"`
 }
 
-// Caregiver represents a caregiver contact for a user
 type Caregiver struct {
 	ID           int64     `gorm:"primaryKey"      json:"id"`
 	UserIntakeID int64     `gorm:"not null;index"  json:"user_intake_id"`
@@ -206,8 +192,10 @@ type Caregiver struct {
 type EmergencyContact struct {
 	ID           int64     `gorm:"primaryKey"     json:"id"`
 	UserIntakeID int64     `gorm:"not null;index" json:"user_intake_id"`
-	Name         string    `gorm:"type:text"      json:"name"`
-	ContactInfo  string    `gorm:"type:text"      json:"contact_info"` // Phone or email
+	FirstName    string    `gorm:"type:text"      json:"first_name"`
+	LastName     string    `gorm:"type:text"      json:"last_name"`
+	PhoneNumber  string    `gorm:"type:text"      json:"phone_number"`
+	Email        string    `gorm:"type:text"      json:"email"`
 	CreatedAt    time.Time `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt    time.Time `gorm:"autoUpdateTime" json:"updated_at"`
 }
@@ -217,7 +205,7 @@ type MedicalEvent struct {
 	ID           int64     `gorm:"primaryKey"     json:"id"`
 	UserIntakeID int64     `gorm:"not null;index" json:"user_intake_id"`
 	Age          string    `gorm:"type:text"      json:"age"`
-	Event        string    `gorm:"type:text"      json:"event"`
+	Description  string    `gorm:"type:text"      json:"description"`
 	CreatedAt    time.Time `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt    time.Time `gorm:"autoUpdateTime" json:"updated_at"`
 }
@@ -248,6 +236,8 @@ type Medication struct {
 	Name         string    `gorm:"type:text"      json:"name"`
 	Dosage       string    `gorm:"type:text"      json:"dosage"`
 	StartDate    string    `gorm:"type:text"      json:"start_date"`
+	EndDate      string    `gorm:"type:text"      json:"end_date"`
+	Current      bool      `                      json:"current"`
 	SideEffects  string    `gorm:"type:text"      json:"side_effects"`
 	CreatedAt    time.Time `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt    time.Time `gorm:"autoUpdateTime" json:"updated_at"`
@@ -273,5 +263,3 @@ type UserIntakeStore interface {
 	DeleteUserIntake(id int64) error
 	ListUserIntakes() ([]*UserIntake, error)
 }
-
-

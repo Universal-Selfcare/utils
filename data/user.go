@@ -18,6 +18,8 @@ type User struct {
 	Hash               string `gorm:"type:text;not null"             json:"hash"`
 	UserIntakeComplete bool   `gorm:"default:false"                  json:"user_intake_complete"`
 
+	UserIntake UserIntake `json:"user_intake"`
+
 	MedicalInformation MedicalInformation `json:"medical_information"`
 
 	Caregivers         []Caregiver         `json:"caregivers"`

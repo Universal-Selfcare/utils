@@ -22,6 +22,7 @@ type Stores struct {
 	MedicalEventStore       MedicalEventStore
 	MedicalInformationStore MedicalInformationStore
 	MedicationStore         MedicationStore
+	UserIntakeStore         UserIntakeStore
 }
 
 func NewStores(db *gorm.DB) *Stores {
@@ -35,6 +36,7 @@ func NewStores(db *gorm.DB) *Stores {
 	medicalEventStore := NewPostgresMedicalEventStore(db)
 	medicalInformationStore := NewPostgresMedicalInformationStore(db)
 	medicationStore := NewPostgresMedicationStore(db)
+	userIntakeStore := NewPostgresUserIntakeStore(db)
 
 	return &Stores{
 		UserStore:               userStore,
@@ -47,5 +49,6 @@ func NewStores(db *gorm.DB) *Stores {
 		MedicalEventStore:       medicalEventStore,
 		MedicalInformationStore: medicalInformationStore,
 		MedicationStore:         medicationStore,
+		UserIntakeStore:         userIntakeStore,
 	}
 }

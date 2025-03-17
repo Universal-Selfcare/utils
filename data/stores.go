@@ -22,6 +22,12 @@ type Stores struct {
 	MedicalEventStore       MedicalEventStore
 	MedicalInformationStore MedicalInformationStore
 	MedicationStore         MedicationStore
+	TrackingPeriodStore     TrackingPeriodStore
+	MealEntryStore          MealEntryStore
+	FoodItemStore           FoodItemStore
+	MealFoodStore           MealFoodStore
+	CustomFoodStore         CustomFoodStore
+	SymptomStore            SymptomStore
 }
 
 func NewStores(db *gorm.DB) *Stores {
@@ -35,6 +41,12 @@ func NewStores(db *gorm.DB) *Stores {
 	medicalEventStore := NewPostgresMedicalEventStore(db)
 	medicalInformationStore := NewPostgresMedicalInformationStore(db)
 	medicationStore := NewPostgresMedicationStore(db)
+	trackingPeriodStore := NewPostgresTrackingPeriodStore(db)
+	mealEntryStore := NewPostgresMealEntryStore(db)
+	foodItemStore := NewPostgresFoodItemStore(db)
+	mealFoodStore := NewPostgresMealFoodStore(db)
+	customFoodStore := NewPostgresCustomFoodStore(db)
+	symptomStore := NewPostgresSymptomStore(db)
 
 	return &Stores{
 		UserStore:               userStore,
@@ -47,5 +59,11 @@ func NewStores(db *gorm.DB) *Stores {
 		MedicalEventStore:       medicalEventStore,
 		MedicalInformationStore: medicalInformationStore,
 		MedicationStore:         medicationStore,
+		TrackingPeriodStore:     trackingPeriodStore,
+		MealEntryStore:          mealEntryStore,
+		FoodItemStore:           foodItemStore,
+		MealFoodStore:           mealFoodStore,
+		CustomFoodStore:         customFoodStore,
+		SymptomStore:            symptomStore,
 	}
 }

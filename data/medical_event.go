@@ -7,7 +7,7 @@ import (
 type MedicalEvent struct {
 	ID          int64     `gorm:"primaryKey"     json:"id"`
 	UserID      int64     `gorm:"not null;index" json:"user_id"`
-	Age         string    `gorm:"type:text"      json:"age"`
+	Age         int64     `                      json:"age"`
 	Description string    `gorm:"type:text"      json:"description"`
 	CreatedAt   time.Time `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt   time.Time `gorm:"autoUpdateTime" json:"updated_at"`

@@ -9,7 +9,9 @@ type DietarySupplement struct {
 	UserID    int64     `gorm:"not null;index" json:"user_id"`
 	Name      string    `gorm:"type:text"      json:"name"`
 	Dosage    string    `gorm:"type:text"      json:"dosage"`
-	StartDate string    `gorm:"type:text"      json:"start_date"`
+	StartDate time.Time `                      json:"start_date"`
+	EndDate   time.Time `                      json:"end_date"`
+	Current   bool      `                      json:"current"`
 	CreatedAt time.Time `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt time.Time `gorm:"autoUpdateTime" json:"updated_at"`
 }

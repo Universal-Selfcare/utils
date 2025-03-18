@@ -10,15 +10,13 @@ type MedicalInformation struct {
 	UserID int64 `gorm:"not null;index" json:"user_id"`
 
 	// Basic information
-	Height             string `gorm:"type:text;not null" json:"height"`
-	Weight             string `gorm:"type:text;not null" json:"weight"`
-	Diagnosis          string `gorm:"type:text;not null" json:"diagnosis"`
-	DiagnosisSeverity  string `gorm:"type:text;not null" json:"diagnosis_severity"`
-	CurrentPriority    string `gorm:"type:text;not null" json:"current_priority"` // "What is most important to you today?"
-	Gender             string `gorm:"type:text;not null" json:"gender"`
-	State              string `gorm:"type:text;not null" json:"state"`
-	ContactPreference  string `gorm:"type:text;not null" json:"contact_preference"`  // "Phone" or "Email"
-	CaregivingPriority string `gorm:"type:text;not null" json:"caregiving_priority"` // "What is most important to you to help the patient?"
+	Height            string `gorm:"type:text;not null" json:"height"`
+	Weight            string `gorm:"type:text;not null" json:"weight"`
+	Diagnosis         string `gorm:"type:text;not null" json:"diagnosis"`
+	DiagnosisSeverity string `gorm:"type:text;not null" json:"diagnosis_severity"`
+	CurrentPriority   string `gorm:"type:text;not null" json:"current_priority"` // "What is most important to you today?"
+	Gender            string `gorm:"type:text;not null" json:"gender"`
+	State             string `gorm:"type:text;not null" json:"state"`
 
 	OralAntibiotics                 bool `gorm:"default:false" json:"oral_antibiotics"`
 	FrequentHydroLotions            bool `gorm:"default:false" json:"frequent_hydro_lotions"`
@@ -155,9 +153,9 @@ type MedicalInformation struct {
 	BullsEyeRash                       bool   `gorm:"default:false" json:"bulls_eye_rash"`
 	SweatingHeadacheCognitive          bool   `gorm:"default:false" json:"sweating_headache_cognitive"`
 
-	OtherConditions       string `gorm:"type:text"    json:"other_conditions"`        // Free text field
-	FoodRelatedConditions string `gorm:"type:text"    json:"food_related_conditions"` // Free text field
-	AppendixRemoved       *bool  `gorm:"default:null" json:"appendix_removed"`        // Yes/No field
+	OtherConditions       string `gorm:"type:text"     json:"other_conditions"`        // Free text field
+	FoodRelatedConditions string `gorm:"type:text"     json:"food_related_conditions"` // Free text field
+	AppendixRemoved       bool   `gorm:"default:false" json:"appendix_removed"`        // Yes/No field
 
 	HealthTriggers string `gorm:"type:text" json:"health_triggers"`
 	DesiredChanges string `gorm:"type:text" json:"desired_changes"`

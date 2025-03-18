@@ -36,6 +36,14 @@ func (v *Validator) Check(ok bool, key, message string) {
 	}
 }
 
+func NotBlank(val string) bool {
+	return len(val) > 0
+}
+
+func MaxLength(val string, maxLen int) bool {
+	return len(val) <= maxLen
+}
+
 func PermittedValue[T comparable](value T, permittedValues ...T) bool {
 	for i := range permittedValues {
 		if value == permittedValues[i] {

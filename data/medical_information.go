@@ -2,6 +2,8 @@ package data
 
 import (
 	"time"
+
+	"github.com/Universal-Selfcare/utils/validator"
 )
 
 // TODO it might make sense to refactor this into blocks which are more often used/updated independently
@@ -10,13 +12,12 @@ type MedicalInformation struct {
 	UserID int64 `gorm:"not null;index" json:"user_id"`
 
 	// Basic information
-	Height            string `gorm:"type:text;not null" json:"height"`
-	Weight            string `gorm:"type:text;not null" json:"weight"`
+	Height            uint   `gorm:"not null"           json:"height"`
+	Weight            uint   `gorm:"not null"           json:"weight"`
 	Diagnosis         string `gorm:"type:text;not null" json:"diagnosis"`
 	DiagnosisSeverity string `gorm:"type:text;not null" json:"diagnosis_severity"`
 	CurrentPriority   string `gorm:"type:text;not null" json:"current_priority"` // "What is most important to you today?"
 	Gender            string `gorm:"type:text;not null" json:"gender"`
-	State             string `gorm:"type:text;not null" json:"state"`
 
 	OralAntibiotics                 bool `gorm:"default:false" json:"oral_antibiotics"`
 	FrequentHydroLotions            bool `gorm:"default:false" json:"frequent_hydro_lotions"`
@@ -170,4 +171,12 @@ type MedicalInformationStore interface {
 	GetMedicalInformationByUserID(userID int64) (*MedicalInformation, error)
 	UpdateMedicalInformation(userIntake *MedicalInformation) error
 	DeleteMedicalInformation(id int64) error
+}
+
+func ValidateMedicalInformation(
+	v *validator.Validator,
+	info *MedicalInformation,
+	allowPartial bool,
+) {
+  v.Check(info.Height > 0, "height", "must be provided")
 }
